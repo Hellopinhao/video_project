@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="选择您喜欢的视频类型">
+    <title>视频类型选择</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <article class="selection-content">
+            <h1 class="page-title">视频类型选择</h1>
+            
+            <section class="instructions-box" aria-label="操作说明">
+                <ul>
+                    <li>请拖动滑块在下列15种视频类型中选择您最想要观看的<strong>三类视频</strong>，并依据您的喜好程度为这三类视频赋予<strong>不同的偏好值</strong>。</li>
+                    <li>一旦您选择的视频类型数量达到3，滑块将会自动锁定。若您想要改变您的选择，请点击"<strong>重置</strong>"按钮重新选择</li>
+                    <li>当您拖动滑块时，视频类型旁的数字将会随之变动，该数字表示您对相应视频类型的喜爱程度</li>
+                    <li>数值越高，该平台推荐一类型视频的可能性越大</li>
+                </ul>
+            </section>
+
+            <button type="button" class="reset-button" onclick="resetSliders()" aria-label="重置所有选择">重置</button>
+
+            <form id="categoryForm" action="{{ url_for('select_categories') }}" method="POST" aria-label="分类选择表单">
+                <div class="categories-slider-list" role="group" aria-label="视频分类">
+                    {% for category in categories %}
+                    <div class="category-slider-item">
+                        <div class="category-header">
+                            <label class="category-name" for="slider-{{ loop.index }}">{{ category }}</label>
+                            <span class="category-value" id="value-{{ loop.index }}" aria-live="polite">0</span>
+                        </div>
+                        <div class="slider-container">
+                            <span class="slider-label" aria-hidden="true">不要推荐---0</span>
+                            <input type="range" 
+                                   id="slider-{{ loop.index }}"
+                                   name="{{ category }}" 
+                                   class="category-slider" 
+                                   min="0" 
+                                   max="10" 
+                                   value="0"
+                                   data-category="{{ category }}"
+                                   aria-label="{{ category }}偏好程度"
+                                   aria-valuemin="0"
+                                   aria-valuemax="10"
+                                   aria-valuenow="0">
+                            <span class="slider-label" aria-hidden="true">推荐---10</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="submit-container">
+                    <button type="submit" class="submit-button" id="submitButton" aria-label="开始观看视频">开始观看视频</button>
+                </div>
+            </form>
+        </article>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/categories.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观看报告 - 组2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- First Round - Group 2 Summary -->
+        <div id="round1SummaryPage" class="summary-content" data-save-url="{{ url_for('save_summary_duration') }}" data-round="1">
+            <h1>提示信息</h1>
+            
+            <!-- Warning Box -->
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-title">风险提醒</div>
+            </div>
+            
+            <div class="warning-text">
+                <p>!!!系统检测到您已经浏览了大量同质化的视频内容。</p>
+                <p>长期暴露于同质化的信息流会引发信息茧房效应，通过强化人们的认知偏差和思维局限，甚至会导致极端思想和极端行为。</p>
+                <p>为了避免此类风险，平台建议您探索更多样化的视频内容！</p>
+            </div>
+            
+            <div class="next-step-content">
+                <p>浏览以上信息并点击“继续”按钮进行下一步！</p>
+                <a href="{{ url_for('categories') }}" class="continue-link-button">
+                    <span class="arrow-icon">👉</span>
+                    <span>继续</span>
+                </a>
+            </div>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/summary_round1.js') }}" defer></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观看报告 - 实验完成</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="summary-content">
+            <h1>视频浏览环节已结束</h1>
+
+            <section class="participant-code-box" aria-label="参与码">
+                <p class="participant-code-label">您的参与码</p>
+                <p class="participant-code-value" id="participantCode">{{ user_id }}</p>
+                <button type="button" class="copy-id-button" id="copyParticipantBtn">复制参与码</button>
+                <p class="participant-code-note">请复制参与码并返回问卷界面回答后续问题</p>
+                <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+            </section>
+
+            <div class="finish-section">
+                <div class="finish-icon">✓</div>
+                <h2>感谢您的参与！</h2>
+                <p class="finish-message">您已经完成了本次实验的视频观看环节</p>
+                <p class="finish-message">您的数据已被成功记录，感谢您为本研究做出的贡献。</p>
+            </div>
+
+        </div>
+        <script src="{{ url_for('static', filename='js/summary_copy.js') }}" defer></script>
+    </div>
+</body>
+</html>

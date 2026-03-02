@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="视频播放页面">
+    <title>视频播放 - {{ index + 1 }}/{{ total }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <article id="playerPage"
+             class="player-content"
+             data-current-index="{{ index }}"
+             data-total-videos="{{ total }}"
+             data-video-id="{{ video.id }}"
+             data-video-title="{{ video.title|e }}"
+             data-video-category="{{ video.get('chinese_category', video.category)|e }}"
+             data-play-base-url="{{ url_for('play_video', index=0) }}"
+             data-summary-url="{{ url_for('summary') }}"
+             data-save-watch-url="{{ url_for('save_watch_duration') }}"
+             data-like-url="{{ url_for('like_video') }}"
+             data-comment-url="{{ url_for('add_comment') }}"
+             data-like-status="{{ like_status or '' }}">
+            <header class="player-header">
+                <h1 class="video-header">为您推荐：<span class="video-progress">({{ index + 1 }}/{{ total }})</span></h1>
+            </header>
+            
+            <section class="video-player-container" aria-label="视频播放器">
+                <!-- Navigation Buttons -->
+                <button class="nav-button prev-button" 
+                        onclick="previousVideo()" 
+                        {% if index == 0 %}disabled{% endif %}
+                        aria-label="前一个视频">
+                    <span aria-hidden="true">← 前一个</span>
+                </button>
+                
+                <!-- Video Player -->
+                <div class="video-frame">
+                    <video 
+                        id="videoPlayer"
+                        controls 
+                        width="100%"
+                        height="600"
+                        class="local-video-player"
+                        aria-label="当前播放视频">
+                        <source src="{{ url_for('serve_video', filename=video.filename) }}" type="video/mp4">
+                        <p>您的浏览器不支持视频播放。请使用现代浏览器。</p>
+                    </video>
+                </div>
+                
+                <button class="nav-button next-button" 
+                        onclick="nextVideo()"
+                        aria-label="{% if index >= total - 1 %}下一步{% else %}下一个视频{% endif %}">
+                    <span aria-hidden="true">{% if index >= total - 1 %}下一步{% else %}下一个 →{% endif %}</span>
+                </button>
+            </section>
+            
+            <div class="player-feedback-grid">
+                <!-- Like/Dislike Section -->
+                <section class="reaction-section" aria-label="视频反馈">
+                    <h3 class="feedback-title">互动反馈</h3>
+                    <div class="reaction-buttons">
+                        <button type="button"
+                                class="reaction-button like-button {% if like_status == 'like' %}active{% endif %}" 
+                                onclick="likeVideo('like')"
+                                aria-label="喜欢此视频"
+                                aria-pressed="{% if like_status == 'like' %}true{% else %}false{% endif %}">
+                            <span class="icon" role="img" aria-label="点赞">👍</span>
+                            <span class="reaction-label">喜欢</span>
+                        </button>
+                        
+                        <button type="button"
+                                class="reaction-button dislike-button {% if like_status == 'dislike' %}active{% endif %}" 
+                                onclick="likeVideo('dislike')"
+                                aria-label="不喜欢此视频"
+                                aria-pressed="{% if like_status == 'dislike' %}true{% else %}false{% endif %}">
+                            <span class="icon" role="img" aria-label="点踩">👎</span>
+                            <span class="reaction-label">不喜欢</span>
+                        </button>
+                    </div>
+                    <p id="feedbackStatus" class="feedback-status" aria-live="polite"></p>
+                </section>
+                
+                <!-- Comments Section -->
+                <section class="comments-section" aria-label="评论区">
+                    <h3 class="comment-title">评论</h3>
+
+                    <div class="comment-input-area">
+                        <label for="commentInput" class="visually-hidden">评论输入框</label>
+                        <textarea id="commentInput" 
+                                placeholder="说点什么..." 
+                                aria-label="输入评论"
+                                rows="3"></textarea>
+                        <button class="send-button" 
+                                onclick="sendComment()"
+                                aria-label="发送评论">发送</button>
+                    </div>
+                    <div class="comment-meta" aria-hidden="true">
+                        <span id="commentLength" class="comment-length">0 字</span>
+                    </div>
+                    <p id="commentStatus" class="comment-status" aria-live="polite"></p>
+                </section>
+            </div>
+            
+            <!-- Summary Button (shown after last video) -->
+                 <aside id="summaryButtonContainer"
+                     class="summary-button-container hidden"
+                   role="alert"
+                   aria-live="polite">
+                <p>{% if current_round == 1 %}第一轮视频观看结束{% else %}第二轮视频观看结束{% endif %}</p>
+                <button class="summary-button" 
+                        onclick="goToSummary()"
+                    aria-label="下一步">下一步</button>
+            </aside>
+        </article>
+    </main>
+    
+    <script src="{{ url_for('static', filename='js/play_video.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观看报告 - 组5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/vendor/chart.umd.min.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- First Round - Group 5 Summary -->
+        <div id="round1SummaryPage" class="summary-content" data-save-url="{{ url_for('save_summary_duration') }}" data-round="1">
+            <h1>提示信息</h1>
+            
+            <div class="warning-box">
+                <div class="warning-icon">📘</div>
+                <div class="warning-title">短视频相关介绍</div>
+            </div>
+            
+            <div class="warning-text">
+                <p>短视频是指时长在5分钟以内，在新媒体平台上播放的，适合在移动和短时休闲状态下观看的高频推送的视频内容。</p>
+                <p>2013年10月我国第一款短视频应用秒拍正式上线。</p>
+                <p>随后短视频飞速走红，成为不可缺少的信息传播载体。</p>
+            </div>
+
+            <div class="report-box">
+                <div class="report-icon">📊</div>
+                <div class="report-title">短视频用户年龄分布</div>
+            </div>
+
+            <div class="report-content">
+                <p class="report-summary">2024年我国短视频平台用户年龄结构如下图。其中，37.5%的用户年龄在30-49岁，33.9%的用户年龄为50岁以及上，28.6%的用户年龄在10-29岁。</p>
+
+                <div class="chart-container">
+                    <h3>年龄结构占比</h3>
+                    <canvas id="ageChart" aria-label="我国短视频年龄结构饼状图"></canvas>
+                </div>
+            </div>
+            
+            <div class="next-step-content">
+                <p>浏览以上信息并点击“继续”按钮进行下一步！</p>
+                <a href="{{ url_for('categories') }}" class="continue-link-button">
+                    <span class="arrow-icon">👉</span>
+                    <span>继续</span>
+                </a>
+            </div>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/summary_group5_age_chart.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/summary_round1.js') }}" defer></script>
+    </div>
+</body>
+</html>

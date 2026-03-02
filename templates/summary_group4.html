@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观看报告 - 组4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- First Round - Group 4 Summary -->
+        <div id="round1SummaryPage" class="summary-content" data-save-url="{{ url_for('save_summary_duration') }}" data-round="1">
+            <h1>提示信息</h1>
+            
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-title">风险提醒</div>
+            </div>
+
+            <div class="warning-text">
+                <p>！！系统检测到您已经浏览了大量同质化的视频内容。</p>
+                <p>长期暴露于同质化的信息被证实能够强化人们的认知偏差和思维局限，甚至会导致极端思想和行为。</p>
+                <p>为了避免陷入信息茧房，我们建议您探索更多样化的视频内容!</p>
+            </div>
+
+            <div class="report-box">
+                <div class="report-icon">📖</div>
+                <div class="report-title">信息茧房危害实例</div>
+            </div>
+            
+            <div class="report-content">
+                <p class="report-summary">我是陈萍（化名），我想和大家分享我陷入信息茧房的故事。信息茧房与我们的距离远比我们想象得近。许多人像我一样，每天花费多个小时在短视频平台，沉迷于完全依照我们的兴趣而定制的个性化内容。在这种情况下，我们很难意识到自己已经陷入算法构建的茧房之中。令人难以置信的是，我的抖音页面过去一年多90%以上的推荐视频都是我每天都会反复刷到的相似内容。</p>
+                <p class="report-summary">陷入信息茧房后我的生活发生了很大变化。我越来越沉迷于短视频，浪费了大把的时间。同时，我的思想变得越来越偏激，对与我想法不同的观点失去了理解和了解的耐心，看待事物变得极端。这种认知层面的隔离一方面让我排斥与自己不同的观点和事物，一方面又让我感觉越来越焦虑和孤独。</p>
+                <p class="report-summary">意识到自己陷入信息茧房之后我开始有意识地增加多样化内容的摄入，我相信均衡的和多元的信息摄入在这个时代是极为重要的！</p>
+            </div>
+            
+            <div class="next-step-content">
+                <p>浏览以上信息并点击“继续”按钮进行下一步！</p>
+                <a href="{{ url_for('categories') }}" class="continue-link-button">
+                    <span class="arrow-icon">👉</span>
+                    <span>继续</span>
+                </a>
+            </div>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/summary_round1.js') }}" defer></script>
+    </div>
+</body>
+</html>

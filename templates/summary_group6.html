@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观看报告 - 组6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/vendor/chart.umd.min.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- First Round - Group 6 Summary -->
+        <div id="round1SummaryPage" class="summary-content" data-save-url="{{ url_for('save_summary_duration') }}" data-round="1">
+            <h1>提示信息</h1>
+            
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-title">风险提示</div>
+            </div>
+
+            <div class="warning-text">
+                <p>！！系统检测到您已经浏览了大量同质化的视频内容。</p>
+                <p>长期暴露于同质化的信息被证实能够强化人们的认知偏差和思维局限，甚至会导致极端思想和行为。</p>
+                <p>为了避免陷入信息茧房，我们建议您探索更多样化的视频内容!</p>
+            </div>
+
+            <div class="report-box">
+                <div class="report-icon">📊</div>
+                <div class="report-title">短视频用户内容偏好分布</div>
+            </div>
+            
+            <div class="report-content">
+                <p class="report-summary">大数据分析结果显示，全国用户平均每天花费在短视频平台的时间约2.6小时。其中生活类短视频总浏览量占比最高，为36.54%； 其次是娱乐搞笑类，总浏览量约32.77%；再次是新闻类，总浏览量约31.73%。</p>
+
+                <div class="chart-container">
+                    <h3>浏览量占比</h3>
+                    <canvas id="usageChart" aria-label="短视频类型浏览量占比饼状图"></canvas>
+                </div>
+            </div>
+            
+            <div class="next-step-content">
+                <p>浏览以上信息并点击“继续”按钮进行下一步！</p>
+                <a href="{{ url_for('categories') }}" class="continue-link-button">
+                    <span class="arrow-icon">👉</span>
+                    <span>继续</span>
+                </a>
+            </div>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/summary_group6_usage_chart.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/summary_round1.js') }}" defer></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>观看报告 - 组3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/vendor/chart.umd.min.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- First Round - Group 3 Summary -->
+        <div id="round1SummaryPage" class="summary-content" data-save-url="{{ url_for('save_summary_duration') }}" data-round="1">
+            <h1>提示信息</h1>
+
+            <div class="warning-box">
+                <div class="warning-icon">⚠️</div>
+                <div class="warning-title">风险提醒</div>
+            </div>
+
+            <div class="warning-text">
+                <p>！！系统检测到您已经浏览了大量同质化的视频内容。</p>
+                <p>长期暴露于同质化的信息被证实能够强化人们的认知偏差和思维局限，甚至会导致极端思想和行为。</p>
+                <p>为了避免陷入信息茧房，我们建议您探索更多样化的视频内容!</p>
+            </div>
+            
+            <div class="report-box">
+                <div class="report-icon">📊</div>
+                <div class="report-title">您的专属视频浏览报告</div>
+            </div>
+            
+            <div class="report-content">
+                <p class="report-summary">
+                    您共花费 <strong>{{ total_minutes }} 分 {{ total_seconds }} 秒</strong>观看短视频，其中 
+                    {% for cat in category_data %}
+                    <strong>{{ "%.2f"|format(cat.percentage) }}%</strong> 用于观看 <strong>{{ cat.name }}</strong> 视频(共{{ cat.video_count }}个视频){{ "，" if not loop.last else "。" }}
+                    {% endfor %}
+                </p>
+                
+                <!-- Pie Chart -->
+                <div class="chart-container">
+                    <h3>时间占比</h3>
+                    <canvas id="timeChart" data-category-data="{{ category_data | tojson | forceescape }}"></canvas>
+                </div>
+            </div>
+            
+            <div class="next-step-content">
+                <p>浏览以上信息并点击“继续”按钮进行下一步！</p>
+                <a href="{{ url_for('categories') }}" class="continue-link-button">
+                    <span class="arrow-icon">👉</span>
+                    <span>继续</span>
+                </a>
+            </div>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/summary_chart.js') }}" defer></script>
+        <script src="{{ url_for('static', filename='js/summary_round1.js') }}" defer></script>
+    </div>
+</body>
+</html>
