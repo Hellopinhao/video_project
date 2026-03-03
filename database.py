@@ -292,18 +292,11 @@ def get_session_statistics(session_id, current_round):
     with get_db_connection() as conn:
         cursor = conn.cursor()
         cursor.execute('''
-             WITH deduplicated_videos AS (
-              SELECT video_category,
-                  video_id,
-                  MAX(watch_duration) AS watch_duration
-              FROM video_watch_log
-              WHERE session_id = %s AND round = %s
-              GROUP BY video_category, video_id
-             )
              SELECT video_category,
-                 SUM(watch_duration) AS total_duration,
-                 COUNT(*) AS video_count
-             FROM deduplicated_videos
+                 COALESCE(SUM(watch_duration), 0) AS total_duration,
+                 COUNT(DISTINCT video_id) AS video_count
+             FROM video_watch_log
+             WHERE session_id = %s AND round = %s
              GROUP BY video_category
         ''', (session_id, current_round))
         

@@ -56,15 +56,42 @@ def view_watch_logs():
 def export_to_excel():
     """Export all data to Excel file"""
     with get_connection() as conn:
-        # Read both tables
+        # Read base tables
         df_selections = pd.read_sql_query("SELECT * FROM user_selections", conn)
         df_watch_logs = pd.read_sql_query("SELECT * FROM video_watch_log", conn)
+
+        # Summary/message page stay duration
+        df_summary_page = pd.read_sql_query(
+            """
+            SELECT user_id, session_id, user_group, round,
+                   ROUND(duration_seconds::numeric, 2) AS summary_page_duration_seconds,
+                   timestamp
+            FROM summary_page_log
+            ORDER BY timestamp DESC
+            """,
+            conn,
+        )
+
+        # Total video watch duration before summary/message page (per session+round)
+        df_before_summary = pd.read_sql_query(
+            """
+            SELECT user_id, session_id, user_group, round,
+                   ROUND(SUM(watch_duration)::numeric, 2) AS total_watch_duration_before_summary_seconds,
+                   COUNT(*) AS watched_video_records
+            FROM video_watch_log
+            GROUP BY user_id, session_id, user_group, round
+            ORDER BY user_id, round
+            """,
+            conn,
+        )
     
     # Export to Excel with multiple sheets
     filename = 'user_behavior_export.xlsx'
     with pd.ExcelWriter(filename, engine='openpyxl') as writer:
         df_selections.to_excel(writer, sheet_name='Category Selections', index=False)
         df_watch_logs.to_excel(writer, sheet_name='Watch Duration', index=False)
+        df_summary_page.to_excel(writer, sheet_name='Summary Page Duration', index=False)
+        df_before_summary.to_excel(writer, sheet_name='Before Summary Watch Time', index=False)
     
     print(f"\n✅ Data exported to: {filename}")
 

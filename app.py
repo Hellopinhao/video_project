@@ -230,9 +230,6 @@ def save_watch_duration():
     video_id = str(data.get('video_id', '')).strip()
     if not video_id:
         return jsonify({'success': False, 'error': 'Missing video_id'}), 400
-    
-    app.logger.warning("save_watch_duration user_id=%s video_id=%s watch_duration=%s",
-                       user_info['user_id'], video_id, data.get('watch_duration'))
 
     video_data = {
         'video_id': video_id,
@@ -284,9 +281,6 @@ def save_summary_duration():
 
     if round_num != 1 or duration_seconds < 0:
         return jsonify({'success': False, 'error': 'Invalid payload'}), 400
-    
-    app.logger.warning("save_summary_duration user_id=%s round=%s duration_seconds=%s",
-                       user_info['user_id'], round_num, duration_seconds)
 
     try:
         save_summary_page_duration(
