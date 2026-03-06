@@ -97,8 +97,8 @@ def init_db():
             )
         ''')
         
-        # Initialize counters for all 6 groups if not exists
-        for group_id in range(1, 7):
+        # Initialize counters for all 7 groups if not exists
+        for group_id in range(1, 8):
             cursor.execute('''
                 INSERT INTO user_counters (group_id, counter) 
                 VALUES (%s, 0)
@@ -182,7 +182,7 @@ def get_next_user_id(group_number):
     """Generate next sequential user ID for a group
     
     Args:
-        group_number: Group number (1-6)
+        group_number: Group number (1-7)
         
     Returns:
         String user ID in format: group_number concatenated with counter (e.g., '1000', '1001', '2000')
@@ -215,7 +215,7 @@ def save_category_selection(user_id, session_id, categories, user_group=1, curre
         user_id: Unique user identifier
         session_id: Unique session identifier
         categories: List of selected categories with preferences
-        user_group: User group number (1-6)
+        user_group: User group number (1-7)
         current_round: Current experiment round (1 or 2)
     """
     with get_db_connection() as conn:
@@ -252,7 +252,7 @@ def save_watch_log(user_id, session_id, current_round, video_data,
         completion_rate: Percentage of video watched
         liked: Like status (1=like, -1=dislike, 0=neutral)
         comment_text: User comment text
-        user_group: User group number (1-6)
+        user_group: User group number (1-7)
     """
     with get_db_connection() as conn:
         cursor = conn.cursor()

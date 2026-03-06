@@ -23,7 +23,7 @@ from session_manager import (
 from utils import calculate_summary_statistics
 
 
-VALID_GROUPS = {1, 2, 3, 4, 5, 6}
+VALID_GROUPS = {1, 2, 3, 4, 5, 6, 7}
 EMPTY_SUMMARY_STATS = {
     'total_videos': 0,
     'total_minutes': 0,

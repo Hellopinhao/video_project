@@ -9,7 +9,7 @@ def initialize_session(group=None):
     """Initialize a new user session with unique IDs
     
     Args:
-        group: User group number (1-6), if provided
+        group: User group number (1-7), if provided
     """
     from database import get_next_user_id
     

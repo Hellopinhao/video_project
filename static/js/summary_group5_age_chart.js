@@ -2,8 +2,8 @@
   const canvas = document.getElementById('ageChart');
   if (!canvas || typeof Chart === 'undefined') return;
 
-  const labels = ['10-29岁', '30-49岁', '50岁及以上'];
-  const values = [28.6, 37.5, 33.9];
+  const labels = ['抖音', '快手', '其他平台'];
+  const values = [50.8, 18.0, 31.2];
 
   const colors = [
     'rgba(66, 99, 235, 0.8)',

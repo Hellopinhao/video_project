@@ -4,7 +4,7 @@
 
   const saveUrl = root.dataset.saveUrl;
   const round = Number(root.dataset.round || 1);
-  const minViewSeconds = 30;
+  const minViewSeconds = 20;
   let startedAt = Date.now();
   let persisted = false;
   let inFlight = null;
@@ -38,7 +38,7 @@
     if (remaining <= 0) {
       setContinueButtonsEnabled(true);
       if (countdownHint) {
-        countdownHint.textContent = '已满30秒，现在可以点击“继续”。';
+        countdownHint.textContent = '已满20秒，现在可以点击“继续”。';
       }
       if (gateTimer) {
         clearInterval(gateTimer);
