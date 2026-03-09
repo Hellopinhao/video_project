@@ -1,7 +1,7 @@
 bind = "127.0.0.1:5000"
-workers = 2
-worker_class = "gthread"
-threads = 4
+workers = 5
+worker_class = "gevent"
+worker_connections = 1000
 
 timeout = 60
 graceful_timeout = 30
