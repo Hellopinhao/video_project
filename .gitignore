@@ -1,0 +1,9 @@
+# Python bytecode and cache
+__pycache__/
+
+# Virtual environments
+venv/
+
+douyin_videos/
+
+user_behavior_export.xlsx
